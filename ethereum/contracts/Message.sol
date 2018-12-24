@@ -3,6 +3,7 @@ pragma solidity ^0.4.15;
 contract Message {
 
     struct Convo {
+        uint256 id;
         address creator;
         string subject;
         string message;
@@ -20,6 +21,7 @@ contract Message {
 
     constructor() public {
         convos.push(Convo({
+            id: 0,
             creator: msg.sender,
             subject: "Greetings",
             message: "Hello World!",
@@ -33,6 +35,7 @@ contract Message {
         uint viewerCount = viewers.length;
 
         Convo memory newConvo = Convo({
+            id: convo_count + 1,
             creator: msg.sender,
             subject: subject,
             message: message,

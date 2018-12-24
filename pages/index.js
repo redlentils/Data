@@ -12,7 +12,8 @@ class ConvosIndex extends Component {
     this.state = ({
       myConvosCreators: [],
       myConvosTime: [],
-      convoCount: ""
+      convoCount: "",
+      viewableConvos: []
     });
   }
 
@@ -22,14 +23,33 @@ class ConvosIndex extends Component {
       from: accounts[0]
     });
     const convoCount = await message.methods.convo_count().call();
-    console.log(convoCount);
+    const viewableConvos = await message.methods.getViewable_Convos().call({
+      from: accounts[0]
+    });
 
     this.setState({
       myConvosCreators: myConvos[0],
-      myConvosTime: myConvos[1]
+      myConvosTime: myConvos[1],
+      viewableConvos: viewableConvos
     });
   }
 
+  renderMyConvos() {
+    const items = this.state.viewableConvos.map((vconvo, index) => {
+      return {
+        header: "CONVO #:" + vconvo,
+        description: (
+          <Link route={`/convos/${vconvo}`}>
+            <a>View Convo</a>
+          </Link>
+        ),
+        meta: "From:" + this.state.myConvosCreators[index],
+        extra: "Block Time Stamp:" + this.state.myConvosTime[index],
+        fluid: true
+      };
+    });
+
+  /*
   renderMyConvos() {
     const items = this.state.myConvosTime.map((time, index) => {
       return {
@@ -43,6 +63,7 @@ class ConvosIndex extends Component {
         fluid: true
       };
     });
+    */
 
     return <Card.Group items={items} />;
   }

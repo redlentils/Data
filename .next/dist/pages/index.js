@@ -68,7 +68,8 @@ var ConvosIndex = function (_Component) {
     _this.state = {
       myConvosCreators: [],
       myConvosTime: [],
-      convoCount: ""
+      convoCount: "",
+      viewableConvos: []
     };
     return _this;
   }
@@ -77,7 +78,7 @@ var ConvosIndex = function (_Component) {
     key: "componentDidMount",
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-        var accounts, myConvos, convoCount;
+        var accounts, myConvos, convoCount, viewableConvos;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -99,15 +100,21 @@ var ConvosIndex = function (_Component) {
 
               case 8:
                 convoCount = _context.sent;
-
-                console.log(convoCount);
-
-                this.setState({
-                  myConvosCreators: myConvos[0],
-                  myConvosTime: myConvos[1]
+                _context.next = 11;
+                return _message2.default.methods.getViewable_Convos().call({
+                  from: accounts[0]
                 });
 
               case 11:
+                viewableConvos = _context.sent;
+
+                this.setState({
+                  myConvosCreators: myConvos[0],
+                  myConvosTime: myConvos[1],
+                  viewableConvos: viewableConvos
+                });
+
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -126,27 +133,44 @@ var ConvosIndex = function (_Component) {
     value: function renderMyConvos() {
       var _this2 = this;
 
-      var items = this.state.myConvosTime.map(function (time, index) {
+      var items = this.state.viewableConvos.map(function (vconvo, index) {
         return {
-          header: "BLOCK #:" + time,
-          description: _react2.default.createElement(_routes.Link, { route: "/convos/" + time, __source: {
+          header: "CONVO #:" + vconvo,
+          description: _react2.default.createElement(_routes.Link, { route: "/convos/" + vconvo, __source: {
               fileName: _jsxFileName,
-              lineNumber: 38
+              lineNumber: 42
             }
           }, _react2.default.createElement("a", {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 39
+              lineNumber: 43
             }
           }, "View Convo")),
-          meta: _this2.state.myConvosCreators[index],
+          meta: "From:" + _this2.state.myConvosCreators[index],
+          extra: "Block Time Stamp:" + _this2.state.myConvosTime[index],
           fluid: true
         };
       });
 
+      /*
+      renderMyConvos() {
+        const items = this.state.myConvosTime.map((time, index) => {
+          return {
+            header: "BLOCK #:" + time,
+            description: (
+              <Link route={`/convos/${time}`}>
+                <a>View Convo</a>
+              </Link>
+            ),
+            meta: this.state.myConvosCreators[index],
+            fluid: true
+          };
+        });
+        */
+
       return _react2.default.createElement(_semanticUiReact.Card.Group, { items: items, __source: {
           fileName: _jsxFileName,
-          lineNumber: 47
+          lineNumber: 68
         }
       });
     }
@@ -156,26 +180,26 @@ var ConvosIndex = function (_Component) {
       return _react2.default.createElement(_Layout2.default, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 52
+          lineNumber: 73
         }
       }, _react2.default.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 53
+          lineNumber: 74
         }
       }, _react2.default.createElement("h3", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 54
+          lineNumber: 75
         }
       }, "My Convos"), _react2.default.createElement(_routes.Link, { route: "/convos/new", __source: {
           fileName: _jsxFileName,
-          lineNumber: 56
+          lineNumber: 77
         }
       }, _react2.default.createElement("a", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 57
+          lineNumber: 78
         }
       }, _react2.default.createElement(_semanticUiReact.Button, {
         floated: "right",
@@ -184,7 +208,7 @@ var ConvosIndex = function (_Component) {
         primary: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 58
+          lineNumber: 79
         }
       }))), this.renderMyConvos()));
     }
@@ -194,4 +218,4 @@ var ConvosIndex = function (_Component) {
 }(_react.Component);
 
 exports.default = ConvosIndex;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIkNhcmQiLCJCdXR0b24iLCJtZXNzYWdlIiwid2ViMyIsIkxheW91dCIsIkxpbmsiLCJDb252b3NJbmRleCIsInByb3BzIiwic3RhdGUiLCJteUNvbnZvc0NyZWF0b3JzIiwibXlDb252b3NUaW1lIiwiY29udm9Db3VudCIsImV0aCIsImdldEFjY291bnRzIiwiYWNjb3VudHMiLCJtZXRob2RzIiwicmV0dXJuTXlDb252b3MiLCJjYWxsIiwiZnJvbSIsIm15Q29udm9zIiwiY29udm9fY291bnQiLCJjb25zb2xlIiwibG9nIiwic2V0U3RhdGUiLCJpdGVtcyIsIm1hcCIsInRpbWUiLCJpbmRleCIsImhlYWRlciIsImRlc2NyaXB0aW9uIiwibWV0YSIsImZsdWlkIiwicmVuZGVyTXlDb252b3MiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPLEFBQVM7Ozs7QUFDaEIsQUFBUyxBQUFNOztBQUNmLEFBQU8sQUFBYTs7OztBQUNwQixBQUFPLEFBQVU7Ozs7QUFDakIsQUFBTyxBQUFZOzs7O0FBQ25CLEFBQVMsQUFBWTs7Ozs7OztJQUVmLEE7dUNBQ0o7O3VCQUFBLEFBQVksT0FBTzt3Q0FBQTs7Z0pBQUEsQUFDWCxBQUVOOztVQUFBLEFBQUs7d0JBQVMsQUFDTSxBQUNsQjtvQkFGWSxBQUVFLEFBQ2Q7a0JBTmUsQUFHakIsQUFBYyxBQUdBO0FBSEEsQUFDWjtXQUlIOzs7Ozs7Ozs7Ozs7O3VCQUd3QixjQUFBLEFBQUssSUFBSSxBLEFBQVQ7O21CQUFqQjtBOzt5Q0FDaUIsQUFBUSxRQUFSLEFBQWdCLGlCQUFoQixBQUFpQzt3QkFDaEQsU0FEZSxBQUFzQyxBQUNyRCxBLEFBQVM7QUFENEMsQUFDM0QsaUJBRHFCOzttQkFBakI7QTs7dUJBR21CLGtCQUFBLEFBQVEsUUFBUixBQUFnQixjQUFoQixBLEFBQThCOzttQkFBakQ7QSxzQ0FDTjs7d0JBQUEsQUFBUSxJQUFSLEFBQVksQUFFWjs7cUJBQUEsQUFBSztvQ0FDZSxTQUROLEFBQ00sQUFBUyxBQUMzQjtnQ0FBYyxTQUZoQixBQUFjLEFBRUUsQUFBUztBQUZYLEFBQ1o7Ozs7Ozs7Ozs7Ozs7Ozs7OztxQ0FLYTttQkFDZjs7VUFBTSxhQUFRLEFBQUssTUFBTCxBQUFXLGFBQVgsQUFBd0IsSUFBSSxVQUFBLEFBQUMsTUFBRCxBQUFPLE9BQVUsQUFDekQ7O2tCQUNVLGFBREgsQUFDZ0IsQUFDckI7dUNBQ0UsQUFBQyw4QkFBSyxvQkFBTixBQUF3Qjt3QkFBeEI7MEJBQUEsQUFDRTtBQURGO1dBQUEsa0JBQ0UsY0FBQTs7d0JBQUE7MEJBQUE7QUFBQTtBQUFBLGFBSkMsQUFHSCxBQUNFLEFBR0o7Z0JBQU0sT0FBQSxBQUFLLE1BQUwsQUFBVyxpQkFQWixBQU9DLEFBQTRCLEFBQ2xDO2lCQVJGLEFBQU8sQUFRRSxBQUVWO0FBVlEsQUFDTDtBQUZKLEFBQWMsQUFhZCxPQWJjOzsyQ0FhUCxBQUFDLHNCQUFELEFBQU0sU0FBTSxPQUFaLEFBQW1CO29CQUFuQjtzQkFBUCxBQUFPLEFBQ1I7QUFEUTtPQUFBOzs7OzZCQUdBLEFBQ1A7NkJBQ0UsQUFBQzs7b0JBQUQ7c0JBQUEsQUFDRTtBQURGO0FBQUEsT0FBQSxrQkFDRSxjQUFBOztvQkFBQTtzQkFBQSxBQUNFO0FBREY7QUFBQSx5QkFDRSxjQUFBOztvQkFBQTtzQkFBQTtBQUFBO0FBQUEsU0FERixBQUNFLEFBRUEsOEJBQUEsQUFBQyw4QkFBSyxPQUFOLEFBQVk7b0JBQVo7c0JBQUEsQUFDRTtBQURGO3lCQUNFLGNBQUE7O29CQUFBO3NCQUFBLEFBQ0U7QUFERjtBQUFBLHlCQUNFLEFBQUM7aUJBQUQsQUFDVSxBQUNSO2lCQUZGLEFBRVUsQUFDUjtjQUhGLEFBR08sQUFDTDtpQkFKRjs7b0JBQUE7c0JBTE4sQUFHRSxBQUNFLEFBQ0UsQUFTSDtBQVRHO0FBQ0UsaUJBUlosQUFDRSxBQUNFLEFBY0csQUFBSyxBQUliOzs7OztBQS9EdUIsQSxBQWtFMUI7O2tCQUFBLEFBQWUiLCJmaWxlIjoiaW5kZXguanM/ZW50cnkiLCJzb3VyY2VSb290IjoiQzovUHJvamVjdHMvRGF0YSJ9
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsIkNvbXBvbmVudCIsIkNhcmQiLCJCdXR0b24iLCJtZXNzYWdlIiwid2ViMyIsIkxheW91dCIsIkxpbmsiLCJDb252b3NJbmRleCIsInByb3BzIiwic3RhdGUiLCJteUNvbnZvc0NyZWF0b3JzIiwibXlDb252b3NUaW1lIiwiY29udm9Db3VudCIsInZpZXdhYmxlQ29udm9zIiwiZXRoIiwiZ2V0QWNjb3VudHMiLCJhY2NvdW50cyIsIm1ldGhvZHMiLCJyZXR1cm5NeUNvbnZvcyIsImNhbGwiLCJmcm9tIiwibXlDb252b3MiLCJjb252b19jb3VudCIsImdldFZpZXdhYmxlX0NvbnZvcyIsInNldFN0YXRlIiwiaXRlbXMiLCJtYXAiLCJ2Y29udm8iLCJpbmRleCIsImhlYWRlciIsImRlc2NyaXB0aW9uIiwibWV0YSIsImV4dHJhIiwiZmx1aWQiLCJyZW5kZXJNeUNvbnZvcyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEFBQU8sQUFBUzs7OztBQUNoQixBQUFTLEFBQU07O0FBQ2YsQUFBTyxBQUFhOzs7O0FBQ3BCLEFBQU8sQUFBVTs7OztBQUNqQixBQUFPLEFBQVk7Ozs7QUFDbkIsQUFBUyxBQUFZOzs7Ozs7O0ksQUFFZjt1Q0FDSjs7dUJBQUEsQUFBWSxPQUFPO3dDQUFBOztnSkFBQSxBQUNYLEFBRU47O1VBQUEsQUFBSzt3QkFBUyxBQUNNLEFBQ2xCO29CQUZZLEFBRUUsQUFDZDtrQkFIWSxBQUdBLEFBQ1o7c0JBUGUsQUFHakIsQUFBYyxBQUlJO0FBSkosQUFDWjtXQUtIOzs7Ozs7Ozs7Ozs7O3VCQUd3QixjQUFBLEFBQUssSSxBQUFMLEFBQVM7O21CQUExQjtBOzt5Q0FDaUIsQUFBUSxRQUFSLEFBQWdCLGlCQUFoQixBQUFpQzt3QkFDaEQsUyxBQURlLEFBQXNDLEFBQ3JELEFBQVM7QUFENEMsQUFDM0QsaUJBRHFCOzttQkFBakI7QTs7dUJBR21CLGtCQUFBLEFBQVEsUUFBUixBQUFnQixjQUFoQixBQUE4QixBOzttQkFBakQ7QTs7eUNBQ3VCLEFBQVEsUUFBUixBQUFnQixxQkFBaEIsQUFBcUM7d0JBQzFELFMsQUFEcUIsQUFBMEMsQUFDL0QsQUFBUztBQURzRCxBQUNyRSxpQkFEMkI7O21CQUF2QjtBLDBDQUlOOztxQkFBQSxBQUFLO29DQUNlLFNBRE4sQUFDTSxBQUFTLEFBQzNCO2dDQUFjLFNBRkYsQUFFRSxBQUFTLEFBQ3ZCO2tDQUhGLEFBQWMsQUFHSTtBQUhKLEFBQ1o7Ozs7Ozs7Ozs7Ozs7Ozs7OztxQ0FNYTttQkFDZjs7VUFBTSxhQUFRLEFBQUssTUFBTCxBQUFXLGVBQVgsQUFBMEIsSUFBSSxVQUFBLEFBQUMsUUFBRCxBQUFTLE9BQVUsQUFDN0Q7O2tCQUNVLGFBREgsQUFDZ0IsQUFDckI7dUNBQ0UsQUFBQyw4QkFBSyxvQkFBTixBQUF3Qjt3QkFBeEI7MEJBQUEsQUFDRTtBQURGO1dBQUEsa0JBQ0UsY0FBQTs7d0JBQUE7MEJBQUE7QUFBQTtBQUFBLGFBSkMsQUFHSCxBQUNFLEFBR0o7Z0JBQU0sVUFBVSxPQUFBLEFBQUssTUFBTCxBQUFXLGlCQVB0QixBQU9XLEFBQTRCLEFBQzVDO2lCQUFPLHNCQUFzQixPQUFBLEFBQUssTUFBTCxBQUFXLGFBUm5DLEFBUXdCLEFBQXdCLEFBQ3JEO2lCQVRGLEFBQU8sQUFTRSxBQUVWO0FBWFEsQUFDTDtBQUZKLEFBQWMsQUFjaEIsT0FkZ0I7O0FBOEJkOzs7Ozs7Ozs7Ozs7Ozs7OzJDQUFPLEFBQUMsc0JBQUQsQUFBTSxTQUFNLE9BQVosQUFBbUI7b0JBQW5CO3NCQUFQLEFBQU8sQUFDUjtBQURRO09BQUE7Ozs7NkJBR0EsQUFDUDs2QkFDRSxBQUFDOztvQkFBRDtzQkFBQSxBQUNFO0FBREY7QUFBQSxPQUFBLGtCQUNFLGNBQUE7O29CQUFBO3NCQUFBLEFBQ0U7QUFERjtBQUFBLHlCQUNFLGNBQUE7O29CQUFBO3NCQUFBO0FBQUE7QUFBQSxTQURGLEFBQ0UsQUFFQSw4QkFBQSxBQUFDLDhCQUFLLE9BQU4sQUFBWTtvQkFBWjtzQkFBQSxBQUNFO0FBREY7eUJBQ0UsY0FBQTs7b0JBQUE7c0JBQUEsQUFDRTtBQURGO0FBQUEseUJBQ0UsQUFBQztpQkFBRCxBQUNVLEFBQ1I7aUJBRkYsQUFFVSxBQUNSO2NBSEYsQUFHTyxBQUNMO2lCQUpGOztvQkFBQTtzQkFMTixBQUdFLEFBQ0UsQUFDRSxBQVNIO0FBVEc7QUFDRSxpQkFSWixBQUNFLEFBQ0UsQUFjRyxBQUFLLEFBSWI7Ozs7O0FBcEZ1QixBLEFBdUYxQjs7a0JBQUEsQUFBZSIsImZpbGUiOiJpbmRleC5qcz9lbnRyeSIsInNvdXJjZVJvb3QiOiJDOi9Qcm9qZWN0cy9EYXRhIn0=
