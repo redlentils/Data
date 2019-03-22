@@ -21,3 +21,5 @@ zksnarktest Implementation Notes
 
 npm install -g circom
 npm install -g snarkjs
+
+(user will have to run these to get the bin folder: node_modules is ignored)
