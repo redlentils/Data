@@ -17,4 +17,4 @@ Type in terminal:
 
 npm run dev
 
-
+zksnarktest Implementation Notes
