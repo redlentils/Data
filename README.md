@@ -18,3 +18,6 @@ Type in terminal:
 npm run dev
 
 zksnarktest Implementation Notes
+
+npm install -g circom
+npm install -g snarkjs
