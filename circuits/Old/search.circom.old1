@@ -1,0 +1,30 @@
+include "comparators.circom";
+
+template Search(char) {
+  signal private input message;
+  signal output out;
+  // var numOfMatch = 0;
+  // var l = 3;
+
+  // signal numOfMatch;
+  // numOfMatch <-- 0;
+
+  component ise = IsEqual();
+  ise.in[0] <== char;
+  ise.in[1] <== message;
+
+  out <-- ise.out;
+  out === 1;
+
+  //for (var i = 0; i<l; i++) {
+  //  ise.in[1] <== message[i];
+
+  //  if (ise.out) {
+  //    numOfMatch += 1;
+  //  }
+  //}
+
+  //numOfMatch ==> out;
+}
+
+component main = Search(66);

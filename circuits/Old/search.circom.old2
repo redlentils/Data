@@ -1,0 +1,33 @@
+include "comparators.circom";
+
+template Search(char, l) {
+  signal private input message[l];
+
+  signal match[l];
+
+  signal output matchCount;
+  var mC = 0;
+
+  component ise[l];
+
+  for (var i = 0; i<l; i++) {
+    ise[i] = IsEqual();
+
+    ise[i].in[0] <== char;
+    ise[i].in[1] <== message[i];
+
+    match[i] <-- ise[i].out;
+    mC += match[i];
+  }
+
+  matchCount <== mC;
+
+  component isz = IsZero();
+  isz.in <== matchCount
+  isz.out === 0;
+
+}
+
+component main = Search(66, 3);
+
+// user creating this circuit would not know l

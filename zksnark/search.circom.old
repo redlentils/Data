@@ -1,0 +1,34 @@
+include "bitify.circom"
+
+template Search(ASCII) {
+  signal private input message[3];
+  // signal private input l;
+  signal output out;
+  var numOfMatch = 0; // maybe this needs to be signal
+  var bitsLength = 8; // signifies the length of bits
+  var msgBits; // the message in bits
+  var l = 3; // number of characters in message
+
+  // component ASCIIkey2bits = Num2Bits(bitsLength);
+  // ASCIIkey2bits.in <== ASCII;
+
+  for (var i = 0; i<l; i++) {
+    component ASCIImsg2bits = Num2Bits(bitsLength);
+    ASCIImsg2bits.in <== message[i];
+
+    for (var j = 0; j<bitsLength; j++) {
+        msgBits[i][j] = ASCIImsg2bits.out[j];
+    }
+
+    component msgBits2Num = Bits2Num(bitsLength);
+    msgBits2Num.in <== msgBits[i];
+    if (ASCII = msgBits2Num.out) {
+      numOfMatch += 1;
+    }
+  }
+
+numOfMatch ==> out;
+
+}
+
+component main = Search(66);
